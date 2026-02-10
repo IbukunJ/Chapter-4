@@ -1,0 +1,475 @@
+---
+title: "Ocean Governance"
+output: html_notebook
+---
+
+# 1. Data {#sec-data style="color:gray"}
+
+This is my data blabla..
+
+## 1.2 Load Data {#sec-1.2-load-data style="color:darkgray"}
+
+```{r}
+# Load necessary libraries
+library(tidyverse)
+library(lubridate)
+
+# Load the data
+df <- read.csv("full_data.csv")
+
+# Inspect the first few rows
+head(df)
+```
+
+## 1.2 Data Prep {#sec-1.2-data-prep style="color:darkgray"}
+
+Relevant variables were systematically derived from the data to operationalize and test each conjecture related to institutional design.
+
+### a) Conjecture 1 {#sec-1.2.1-conjecture-1}
+
+In line with Conjecture 1, which posits that *international organisations with stronger institutional design features are more likely to endure and remain effective in global ocean governance*, we have developed a composite Endurance Score for each Intergovernmental Organisation (IGO) in the dataset.
+
+This score is designed to quantitatively represent the extent to which each IGO is institutionally mature, well-coordinated, strategically diversified, and jurisdictionally broad — all of which are theorised to support endurance and relevance in complex governance environments.
+
++----------------------------------+---------------------------------------------------------------------------------------+
+| | Variable Name |                | | What It Measures |                                                                  |
+| |---------------|                | |------------------|                                                                  |
++==================================+=======================================================================================+
+| igo_age                          | Historical maturity (numeric)                                                         |
++----------------------------------+---------------------------------------------------------------------------------------+
+| spatial_breadth                  | Spatial jurisdictional scope                                                          |
++----------------------------------+---------------------------------------------------------------------------------------+
+| subject_breadth                  | Subject-matter scope                                                                  |
++----------------------------------+---------------------------------------------------------------------------------------+
+| legal_breadth                    | Legal foundation/basis                                                                |
++----------------------------------+---------------------------------------------------------------------------------------+
+| vertical_coordination_strength   | Robustness of vertical coordination mechanisms                                        |
++----------------------------------+---------------------------------------------------------------------------------------+
+| horizontal_coordination_strength | Robustness of horizontal coordination mechanisms                                      |
++----------------------------------+---------------------------------------------------------------------------------------+
+| strategy_diversification         | Strategic breadth                                                                     |
++----------------------------------+---------------------------------------------------------------------------------------+
+| objective_diversification        | Functional/objective breadth                                                          |
++----------------------------------+---------------------------------------------------------------------------------------+
+| endurance_score                  | Ongoing relevance and activity (not just survival).                                   |
+|                                  |                                                                                       |
+|                                  | Institutional integration — via legal basis, spatial jurisdiction, coordination, etc. |
+|                                  |                                                                                       |
+|                                  | Functional diversity — being adaptable and cross-cutting.                             |
++----------------------------------+---------------------------------------------------------------------------------------+
+
+: Table 1. Summary of Derived Variables for Conjecture 1
+
+As part of our data preparation for testing Conjecture 1 — *that stronger institutional design features increase IGO endurance* — we calculated data-driven weights for each design dimension of international governance organisations (IGOs).
+
+#### 🧪 What we did
+
+To avoid relying on arbitrary or equal weighting, we used a scientific and empirical approach to derive weights for each category of institutional features. Specifically, we:
+
+-   Calculated the **total score** for each IGO within each category (e.g., sum of all spatial governance indicators).
+
+-   Then, computed the **standard deviation** of those scores across all IGOs.
+
+-   The standard deviation reflects **how much variation** there is in each category between organisations.
+
+-   Finally, we **normalized** these values so that the total across all categories adds up to 1. This gives us the final **relative weights** for each category.
+
+This approach assumes that **more variation across IGOs** means a category has greater potential to explain differences in endurance — a standard principle in social science measurement.
+
+```{r}
+
+# Define column index ranges for each category
+column_ranges <- list(
+  Density_Metrics = 4:5,
+  Spatial_Governance = 6:26,
+  Vertical_Coordination = 27:47,
+  Subject_Matter_Coverage = 48:68,
+  Strategies = 69:89,
+  Defined_Objectives = 90:110,
+  Defined_Interactions = 111:131,
+  Sources_Legal_Instruments = 132:152,
+  Horizontal_Coordination = 153:173
+)
+
+# Calculate the standard deviation of each category's summed score
+category_weights <- sapply(names(column_ranges), function(cat) {
+  cols <- column_ranges[[cat]]
+  scores <- rowSums(df[, cols], na.rm = TRUE)
+  sd(scores)
+})
+
+# Normalize the weights so they sum to 1
+normalized_weights <- category_weights / sum(category_weights)
+
+
+# Display the weights
+#print(round(normalized_weights, 4))
+```
+
+| Category | Weight | Interpretation |
+|----|----|----|
+| Spatial | 0.1841 | This category has the highest variation, suggesting that IGOs differ significantly in how many and which maritime zones they govern. Therefore, spatial scope is likely a strong differentiator in endurance. |
+| Defined Objectives | 0.1288 | High variation in how IGOs define and pursue their objectives implies that strategic clarity and diversity are key features influencing endurance. |
+| Strategies | 0.1280 | Similarly, how IGOs implement their missions varies considerably, indicating that some pursue a broad array of strategies while others do not. This strategic diversification is likely relevant for persistence. |
+| Subject Matter | 0.1170 | There is substantial diversity in the thematic areas IGOs. Broader thematic reach appears to be moderately important in explaining endurance. |
+| Density Metrics | 0.1108 | Institutional density (founding clusters, stock) has moderate variation, suggesting it may play a role in survival and embeddedness, but less so than spatial or strategic dimensions. |
+| Defined Interactions | 0.0950 | IGOs differ in how they engage with civil society, donors, and expert groups, though less than in strategies or objectives. Still relevant, but more modest in its role. |
+| Legal Instruments | 0.0943 | Legal foundation types show some variation, though many IGOs may share similar instruments. Important but not highly distinctive. |
+| Vertical Coord | 0.0743 | Variation in alignment with national institutions is relatively lower, implying this dimension is somewhat consistent across IGOs or less critical in differentiating endurance. |
+| Horizontal Coord | 0.0678 | The lowest variation was found here. Most IGOs either share similar cross-sector coordination mechanisms, or this aspect is underdeveloped across the board. Hence, it contributes least to distinguishing enduring IGOs. |
+
+Table 2. Weights and interpretation
+
+In essence, these weights tell us **which institutional features vary the most between IGOs**, and therefore which are more likely to matter for understanding endurance. The results align well with theoretical expectations from institutional sociology and governance literature:
+
+-   **Spatial scope**, **strategic diversification**, and **clear objectives** appear to be particularly important differentiators of IGO endurance.
+
+-   **Legal sources** and **coordination mechanisms**, while still relevant, vary less across organisations and thus carry less explanatory weight in this specific dataset.
+
+```{r}
+
+# Select and clean relevant ordinal score columns
+ordinal_cols <- df %>%
+  select(institution,
+         ordinal_score_spatial,
+         ordinal_score_vertical_coordination,
+         ordinal_score_subject_matter,
+         ordinal_score_strategies,
+         ordinal_score_defined_objectives,
+         ordinal_score_defined_inter,
+         ordinal_score_sources,
+         ordinal_score_horizontal)
+
+# Reshape data to long format and clean feature names
+ordinal_long <- ordinal_cols %>%
+  pivot_longer(cols = -institution,
+               names_to = "feature",
+               values_to = "score") %>%
+  mutate(feature = str_replace_all(feature, "ordinal_score_", ""),
+         feature = str_replace_all(feature, "_", " "),
+         feature = str_to_title(feature))
+
+# Calculate average score per feature per institution
+avg_scores <- ordinal_long %>%
+  group_by(institution, feature) %>%
+  summarise(avg_score = mean(score, na.rm = TRUE), .groups = "drop")
+
+overall_avg <- avg_scores %>%
+  group_by(feature) %>%
+  summarise(overall_avg = mean(avg_score), .groups = "drop")
+
+# Add to plot
+ggplot(avg_scores, aes(x = feature, y = avg_score, group = institution, color = institution)) +
+  geom_line(alpha = 0.3) +
+  geom_point(size = 1, alpha = 0.5) +
+  geom_line(data = overall_avg, aes(x = feature, y = overall_avg, group = 1),
+            color = "black", size = 1.2, linetype = "dashed") +
+  labs(title = "Figure 1A Average Ordinal Scores by Institutional Design Feature",
+       subtitle = "Black dashed line shows overall mean",
+       x = "Design Feature", y = "Average Score") +
+  theme_minimal(base_size = 12) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    legend.position = "none"
+  )
+
+# Boxplot of scores by feature
+Boxplot <- ggplot(ordinal_long, aes(x = feature, y = score)) +
+  geom_boxplot(fill = "steelblue", alpha = 0.7, outlier.color = "red", outlier.size = 1.5) +
+  labs(
+    title = "Figure 1B Distribution of Ordinal Scores",
+    subtitle = "Boxplots show spread of scores across institutions",
+    x = "Design Feature", y = "Ordinal Score"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    plot.title = element_text(),
+    plot.subtitle = element_text(size = 10)
+  )
+
+```
+
+| Insight Area | What to Look For |
+|----|----|
+| **High/Low Performing Features** | Where the black dashed line is high, institutions tend to perform better in that design category (e.g., Strategies, Subject Matter). |
+| **Inconsistency** | Features where individual lines diverge widely from each other (spread out) show variability among institutions. E.g., Spatial scores vary a lot across IGOs. |
+| **Consistency** | Features where lines are clustered closely (small vertical spread) show agreement across institutions — possibly standardized practice. |
+| **Outliers** | Any institution line that consistently sits above or below others across all features may be an outlier (very strong or weak institution in design terms). |
+
+The **features with the highest variation in the plot** also have the **highest statistical weights**, confirming their stronger role in differentiating IGO endurance.
+
+**🧮 Building a Composite *Scores* from Data**
+
+```{r}
+# Load libraries
+library(dplyr)
+library(tidyr)
+library(scales)
+
+# 1. Derive Age (IGO Age)
+df <- df %>%
+  mutate(igo_age = 2025 - year_founded)  # Assuming current year is 2025
+
+# 2. Jurisdictional Breadth
+df <- df %>%
+  mutate(
+    spatial_breadth = rowSums(select(., 6:26), na.rm = TRUE),
+    subject_breadth = rowSums(select(., 48:68), na.rm = TRUE)
+  )
+
+# 3. Institutional Design
+df <- df %>%
+  mutate(
+    legal_breadth = rowSums(select(., 132:152), na.rm = TRUE),
+    vertical_coordination_strength = rowSums(select(., 27:47), na.rm = TRUE),
+    horizontal_coordination_strength = rowSums(select(., 153:173), na.rm = TRUE),
+    defined_interactions = rowSums(select(., 111:131), na.rm = TRUE)
+  )
+
+# 4. Strategic Reach
+df <- df %>%
+  mutate(
+    strategy_diversification = rowSums(select(., 69:89), na.rm = TRUE),
+    objective_diversification = rowSums(select(., 90:110), na.rm = TRUE)
+  )
+
+# Normalize each component 0–1 (min-max scaling)
+normalize <- function(x) rescale(x, to = c(0, 1))
+
+df <- df %>%
+  mutate(
+    score_age = normalize(igo_age),
+    score_spatial = normalize(spatial_breadth),
+    score_subject = normalize(subject_breadth),
+    score_vertical = normalize(vertical_coordination_strength),
+    score_horizontal = normalize(horizontal_coordination_strength),
+    score_strategies = normalize(strategy_diversification),
+    score_objectives = normalize(objective_diversification),
+    score_legal = normalize(legal_breadth),
+    score_defined_inter = normalize(defined_interactions)
+  )
+
+# Final weighted Endurance Score
+df <- df %>%
+  mutate(
+    endurance_score = (
+      0.1108 * score_age +
+      0.1841 * score_spatial +
+      0.0743 * score_vertical +
+      0.1170 * score_subject +
+      0.1280 * score_strategies +
+      0.1288 * score_objectives +
+      0.0950 * score_defined_inter +
+      0.0943 * score_legal +
+      0.0678 * score_horizontal
+    )
+  )
+```
+
+We now have a robust, data-driven index — ***the Endurance Score*** — that allows us to rank and compare IGOs based on their structural design and potential for long-term effectiveness. This index will be used in the next stage to test our hypotheses under Conjecture 1, and to explore whether IGOs with stronger design features indeed score higher in institutional endurance
+
+### b) Conjecture 2
+
+Conjecture 2 is about **density**, **niche differentiation**, and **adaptive capacity**. To test this, we need to measure several things:
+
+| **Variable Name** | What It Measures |
+|----|----|
+| `density_at_founding` | Institutional density in the ecosystem at the IGO’s time of founding |
+| `spatial_breadth` | How many maritime zones the IGO covers (jurisdictional spread) |
+| `subject_breadth` | Number of subject-matter domains the IGO covers (mandate scope) |
+| `niche_specialisation` | Inverse of spatial + subject breadth; narrower mandates = higher specialisation |
+| `vertical_coord_strength` | Strength of vertical coordination mechanisms (e.g. global-regional-national coordination) |
+| `horizontal_coord_strength` | Strength of horizontal coordination (e.g. shared monitoring, joint platforms) |
+| `legal_authority_index` | Degree of legal grounding (treaty-based, soft law, secondary frameworks) |
+| `strategy_diversification` | Number of distinct strategies pursued by the IGO (policy tools, capacity building, etc.) |
+| `objective_diversification` | Number of distinct objectives the IGO has defined |
+| `adaptive_capacity_index` | Composite indicator of strategy + objective diversification (overall functional adaptability) |
+| `density_squared` | Non-linear effect of founding density (to test for diminishing returns of density) |
+| `founding_era_category` | Era in which IGO was founded (e.g., pre-UNCLOS, post-Rio, etc.) |
+
+Table 2. Summary of Derived Variables for Conjecture 2
+
+**Deriving Variables for Conjecture 2**
+
+```{r}
+# Load necessary libraries
+library(dplyr)
+library(scales)
+
+# Derive Niche Specialisation
+# Combine spatial + subject breadth, normalize, then invert to show specialisation
+df <- df %>%
+  mutate(
+    total_breadth = spatial_breadth + subject_breadth,
+    niche_specialisation = 1 - rescale(total_breadth, to = c(0, 1))  # Higher = more specialised
+  )
+
+# Adaptive Capacity Index
+# Based on strategic diversification and objectives (proxy for functional flexibility)
+df <- df %>%
+  mutate(
+    adaptive_capacity_index = rescale(strategy_diversification, to = c(0, 1)) +
+                              rescale(objective_diversification, to = c(0, 1)),
+    adaptive_capacity_index = adaptive_capacity_index / 2  # Average to keep scale 0–1
+  )
+
+# Density Squared (for non-linear density effects)
+df <- df %>%
+  mutate(
+    foundingdensity_5yr_norm = rescale(foundingdensity_5yr, to = c(0, 1)),
+    density_squared = foundingdensity_5yr_norm^2
+  )
+```
+
+**📘 Deriving Key Variables for Testing Conjecture 2**
+
+To investigate Conjecture 2, which explores *how intergovernmental organisations (IGOs) adapt within crowded governance environments*, we derived new variables from our dataset that capture key theoretical concepts such as niche specialisation, adaptive capacity, and the non-linear effects of institutional density. These concepts are central to understanding how IGOs maintain their relevance and efficiency in a complex and overlapping global ocean governance landscape.
+
+First, we calculated a ***Niche Specialisation*** Score that reflects the degree to which an IGO narrows its mandate — either geographically (e.g., focusing only on High Seas) or thematically (e.g., focusing on biodiversity or trade). We did this by summing each IGO’s spatial and subject-matter coverage (both previously derived), normalising this total, and inverting it so that higher scores indicate more specialisation.
+
+Second, we created an ***Adaptive Capacity Index***, based on the number of distinct strategies and objectives pursued by each IGO. This measure captures how flexible and resilient an organisation may be in responding to emerging challenges, legal uncertainties, or institutional crowding.
+
+Third, we squared the previously established founding density metric to account for potential non-linear effects, testing whether crowding has diminishing or compounding impacts on IGO behavior. Together, these variables equip us to test whether differentiation and relational positioning help IGOs sustain legitimacy and effectiveness amidst increasing institutional density in global ocean governance.
+
+### c) Conjecture 3
+
+To investigate **Conjecture 3**, we focused on identifying and quantifying the conditions that contribute to an international organisation’s (IGO's) **legitimacy and efficacy** in global ocean governance. The underlying hypothesis suggests that organisations that are better embedded in governance networks—legally, strategically, and institutionally—are more likely to be effective and perceived as legitimate actors. To test this, we derived a set of key indicators from the dataset that align with the theoretical expectations in the literature.
+
+|  |  |
+|----|----|
+| **Variable** | **What It Measures (Conceptual Dimension)** |
+| `ordinal_score_sources` | **Legal Authority Strength** — Measures the extent of formal legal basis (e.g., treaties, binding law) |
+| `subject_breadth` | **Subject-Matter Mandate Breadth** — Number of distinct issue areas (e.g., biodiversity, trade) |
+| `spatial_breadth` | **Jurisdictional Breadth** — Number of maritime zones under IGO’s governance |
+| `vertical_coordination_strength` | **Relational Embeddedness (Vertical)** — Strength of intergovernmental coordination mechanisms |
+| `horizontal_coordination_strength` | **Relational Embeddedness (Horizontal)** — Involvement in partnerships, platforms, and cross-sector ties |
+| `strategy_diversification` | **Strategic Breadth** — Range of strategies employed (e.g., climate action, finance, innovation, inclusion) |
+| `objective_diversification` | **Operational Breadth** — Breadth of functional goals and planning objectives |
+
+Table 3. Summary of Derived Variables for Conjecture 3
+
+**Deriving Variables for Conjecture 3 (Embeddedness, Legitimacy, and Efficacy)**
+
+First, we captured **legal authority** by using the column `ordinal_score_sources`, which summarises the extent to which an IGO is grounded in formal legal instruments such as treaties, secondary legislation, or soft law frameworks. Stronger legal mandates are presumed to lend more credibility and legitimacy to the organisation’s actions. This variable provides a direct measure of the formal legal foundation of each IGO.
+
+Second, we constructed a **mandate breadth** measure by combining two previously derived variables: `spatial_breadth` and `subject_breadth`. The former captures how many maritime zones (e.g. high seas, EEZs, enclosed seas) an IGO operates within, while the latter quantifies the range of issue areas (such as biodiversity, trade, security, etc.) the IGO engages with. Together, they provide a holistic view of how broad or narrow an IGO’s mandate is, which reflects its potential to represent diverse interests and constituencies in ocean governance.
+
+Third, we operationalised **relational embeddedness** by combining scores from vertical and horizontal coordination dimensions. This involved summing the number of coordination mechanisms an IGO uses—such as partnerships with national governments, UN agencies, or technical bodies—across both vertical (`27–47`) and horizontal (`153–173`) collaboration structures. This variable helps us understand how connected each IGO is within broader institutional networks, which is an important predictor of organisational resilience and legitimacy in complex governance environments.
+
+Lastly, we utilised the existing `strategy_diversification` metric, which captures how functionally diversified an IGO is in terms of the strategies it deploys—such as innovation, inclusion, climate action, or financial planning. Organisations with broader strategic portfolios are generally better able to adapt to shifting global priorities, making them more effective and legitimate over time.
+
+```{r}
+library(dplyr)
+
+#  Mandate Breadth
+df <- df %>%
+  mutate(
+    spatial_breadth = rowSums(select(., 6:26), na.rm = TRUE),  # Already derived
+    subject_breadth = rowSums(select(., 49:68), na.rm = TRUE), # Already derived
+    mandate_breadth = spatial_breadth + subject_breadth        # Composite measure
+  )
+
+# Relational Embeddedness
+df <- df %>%
+  mutate(
+    embeddedness_score = rowSums(select(., 27:47, 153:173), na.rm = TRUE) # Vertical + Horizontal coordination
+  )
+
+# Strategy Diversification (already derived)
+# Sum of strategic categories (both within/across): strategy_diversification
+
+# 5. Composite Legitimacy & Efficacy Score
+df <- df %>%
+  mutate(
+    legitimacy_efficacy_score = 
+      scales::rescale(ordinal_score_sources, to = c(0, 1)) +
+      scales::rescale(mandate_breadth, to = c(0, 1)) +
+      scales::rescale(embeddedness_score, to = c(0, 1)) +
+      scales::rescale(strategy_diversification, to = c(0, 1))
+  )
+
+# Preview results
+df %>% select(institution, ordinal_score_sources, mandate_breadth, embeddedness_score, strategy_diversification, legitimacy_efficacy_score)
+```
+
+```{r}
+library(dplyr)
+
+#  Mandate Breadth
+df <- df %>%
+  mutate(
+    spatial_breadth = rowSums(select(., 6:26), na.rm = TRUE),  # Already derived
+    subject_breadth = rowSums(select(., 49:68), na.rm = TRUE), # Already derived
+    mandate_breadth = spatial_breadth + subject_breadth        # Composite measure
+  )
+
+# Relational Embeddedness
+df <- df %>%
+  mutate(
+    embeddedness_score = rowSums(select(., 27:47, 153:173), na.rm = TRUE) # Vertical + Horizontal coordination
+  )
+
+# Strategy Diversification (already derived)
+# Sum of strategic categories (both within/across): strategy_diversification
+
+# 5. Composite Legitimacy & Efficacy Score
+df <- df %>%
+  mutate(
+    legitimacy_efficacy_score = 
+      scales::rescale(ordinal_score_sources, to = c(0, 1)) +
+      scales::rescale(mandate_breadth, to = c(0, 1)) +
+      scales::rescale(embeddedness_score, to = c(0, 1)) +
+      scales::rescale(strategy_diversification, to = c(0, 1))
+  )
+
+# Preview results
+df %>% select(institution, ordinal_score_sources, mandate_breadth, embeddedness_score, strategy_diversification, legitimacy_efficacy_score)
+
+```
+
+```{r}
+view(colnames(df))
+```
+
+To synthesise all these components, we created a **composite "Legitimacy & Efficacy Score"**, which aggregates the four dimensions—legal authority, mandate breadth, relational embeddedness, and strategic diversification—after standardising them to a common scale. This score offers a simple but powerful way to rank and compare IGOs in terms of their embeddedness and potential for effective governance in the ocean economy.
+
+This structured approach allows us to empirically test the claim that legitimacy and effectiveness are not random but are deeply rooted in the organisational design and network positioning of IGOs within the institutional landscape of global ocean governance.
+
+### Save Final Data
+
+```{r}
+# Custom normalization function: only apply if max value > 10
+normalize_if_needed <- function(x) {
+  if (is.numeric(x) && max(x, na.rm = TRUE) > 10) {
+    rng <- range(x, na.rm = TRUE)
+    if (rng[1] == rng[2]) return(rep(0, length(x)))  # avoid divide-by-zero
+    return(10 * (x - rng[1]) / (rng[2] - rng[1]))
+  } else {
+    return(x)
+  }
+}
+
+# Apply to columns 6 to 200 in-place
+df[ , 6:200] <- lapply(df[ , 6:200], normalize_if_needed)
+```
+
+```{r}
+# Save the resulting data frame to CSV
+write.csv(df, "IGO_full_data.csv", row.names = FALSE)
+```
+
+### 🔍 **Summary of Data Preparation for Conjectures 1–3**
+
+We prepared the dataset by extracting and organizing key variables that reflect institutional design features of intergovernmental organizations (IGOs). These variables were selected to test three core conjectures about what makes IGOs more enduring over time.
+
+1.  **Variable Construction**:\
+    We derived relevant indicators from the data to capture dimensions such as spatial scope, thematic breadth, legal foundation, coordination mechanisms, and strategic diversity.
+
+2.  **Scoring and Normalization**:\
+    Ordinal scores were used to assess how each IGO performs across these dimensions. For interpretability, we normalized key variables to a 0–10 scale.
+
+3.  **Comparative Preparation**:\
+    Summary statistics and visualizations (average score plots) were used to assess variation across IGOs, helping to identify which features are most distinctive or consistent.
+
+These steps ensure that our analysis is grounded in a structured, comparable, and conceptually relevant dataset for testing the conjectures.

@@ -1,0 +1,81 @@
+attribute_family,category_label,category_slug,definition_note,example_triggers,tier_bonus
+spatial_jurisdiction,Internal Waters,internal_waters,,,1
+spatial_jurisdiction,Coastal Zone,coastal_zone,,coastal,2
+spatial_jurisdiction,Territorial sea (TS),territorial_sea_ts,,territorial waters,0
+spatial_jurisdiction,Contiguous zone (CZ),contiguous_zone_cz,,,0
+spatial_jurisdiction,Exclusive Economic Zone (EEZ),exclusive_economic_zone_eez,,,0
+spatial_jurisdiction,Extended continental shelf (CS),extended_continental_shelf_cs,,,0
+spatial_jurisdiction,The Area,the_area,,beyond national jurisdiction | international seabed area,9
+spatial_jurisdiction,High Seas,high_seas,,areas beyond national jurisdiction; abnj | high seas; areas beyond national jurisdiction,8
+spatial_jurisdiction,Archipelago,archipelago,,,3
+spatial_jurisdiction,Enclosed or semi-enclosed sea,enclosed_or_semi_enclosed_sea,,,4
+subject_matter_jurisdiction,Environmental Protection & Climate Change,environmental_protection_climate_change,,climate | climate; adaptation | climate; adaptation; mitigation | climate; emissions; adaptation; mitigation | climate; environment; environmental | environment | environment; climate | environment; emission,0
+subject_matter_jurisdiction,Sustainable Development & Capacity Building,sustainable_development_capacity_building,,capacity building | capacity building; sustainable development | capacity development | capacity development; sustainable development | sdgs | sustainable development | technical assistance | technical assistance; capacity building; sustainable development,0
+subject_matter_jurisdiction,International Cooperation & Governance,international_cooperation_governance,,convention | convention; international cooperation | convention; treaty | conventions | international cooperation | international cooperation; convention | multilateral; conventions | treaties; treaty,0
+subject_matter_jurisdiction,"Research, Science & Innovation",research_science_innovation,,data | data; research; innovation | data; scientific; research; marine scientific research | innovation | innovation; monitoring | monitoring | observation; data; scientific; research; marine scientific research | research,0
+subject_matter_jurisdiction,Biodiversity & Ecosystem Conservation,biodiversity_ecosystem_conservation,,biodiversity | biodiversity; ecosystem; conservation | biodiversity; ecosystem; restoration | biodiversity; ecosystems | conservation | conservation; biodiversity; habitat; habitats | conservation; habitats; conservation; habitat; restoration | ecosystems; conservation,0
+subject_matter_jurisdiction,"Trade, Investment & Economic Cooperation",trade_investment_economic_cooperation,,investment | market | shipping | trade | trade; investment | trade; market | trade; market; investment; trade facilitation | trade; trade,0
+subject_matter_jurisdiction,"Human Rights, Social Justice & Advocacy",human_rights_social_justice_advocacy,,gender | gender; human rights | gender; livelihoods | human rights | human rights; gender | human rights; human rights | social justice; human rights,0
+subject_matter_jurisdiction,Security & Safety,security_safety,,safety; security | safety; security; maritime safety; maritime security | security | security; maritime security,0
+subject_matter_jurisdiction,Disaster Risk Reduction & Resilience,disaster_risk_reduction_resilience,,disaster risk reduction | disaster risk reduction; resilience; preparedness | preparedness | resilience,0
+subject_matter_jurisdiction,"Cultural Heritage, Traditional Knowledge & Data Governance",cultural_heritage_traditional_knowledge_data_governance,,traditional knowledge,0
+sources_of_jurisdiction,Foundational Treaties/Charters,foundational_treaties_charters,,,0
+sources_of_jurisdiction,Binding Secondary Law,binding_secondary_law,,decision | decision; decisions | decisions | decisions; decision | decisions; decisions | decisions; regulations | decisions; regulations; directives; regulations; regulation; decisions | regulation,0
+sources_of_jurisdiction,Delegated / Derived Powers,delegated_or_derived_powers,,,0
+sources_of_jurisdiction,Bilateral/Multilateral Arrangements,bilateral_or_multilateral_arrangements,,,0
+sources_of_jurisdiction,Customary / Soft Law Authority,customary_or_soft_law_authority,,,0
+sources_of_jurisdiction,Technical Norms & Standards,technical_norms_and_standards,,standards | standards; standard | standards; standard; standard,0
+sources_of_jurisdiction,Strategic Frameworks & Policy Plans,strategic_frameworks_and_policy_plans,,,0
+sources_of_jurisdiction,Memoranda of Understanding (MoUs),memoranda_of_understanding_mous,,,0
+sources_of_jurisdiction,Financial Mechanisms / Instruments,financial_mechanisms_or_instruments,,,0
+sources_of_jurisdiction,Political Mandates / Resolutions,political_mandates_or_resolutions,,,0
+defined_objectives,Governance & Planning,governance_and_planning,,governance | mandate | planning | strategic plan,0
+defined_objectives,Financial Stewardship,financial_stewardship,,finance; trust fund | financial | financial; financial management | grant,0
+defined_objectives,Policy & Regulation,policy_and_regulation,,law | law; policy; legal | law; rules; regulations | legal | normative; policy | policy | regulation | regulations,0
+defined_objectives,Environmental Action,environmental_action,,climate | climate; environmental; climate | environment | environmental | environmental; adaptation | environmental; environment,0
+defined_objectives,Knowledge & Data,knowledge_and_data,,data; information | information | information; assessment | information; data | information; research | monitoring | monitoring; assessment | monitoring; research,0
+defined_objectives,Innovation & Technology,innovation_and_technology,,innovation | innovation; technology | platforms | systems | systems; technology | technology | tools,0
+defined_objectives,Inclusion & Rights,inclusion_and_rights,,gender | gender; human rights; gender | human rights | human rights; gender | human rights; human rights | human rights; participation | inclusive | indigenous,0
+defined_objectives,Partnerships & Networks,partnerships_and_networks,,collaboration | coordination | coordination; partnership; partnerships | networks | partnerships,0
+defined_objectives,Operational Delivery,operational_delivery,,capacity development | implementation | implementation; operation | implementation; technical assistance | operation | operations | technical assistance | technical assistance; implementation,0
+defined_objectives,Monitoring & Accountability,monitoring_and_accountability,,monitoring; accountability; reporting | monitoring; indicators | monitoring; reporting | reporting,0
+strategies,Strategic & Institutional Planning,strategic_and_institutional_planning,,strategic plan; strategy; strategy; results-based management | strategic planning; strategic plan; strategies | strategies | strategies; roadmap | strategies; strategic plan | strategies; strategic plan; roadmap | strategies; strategic plan; strategic plan | strategies; strategic plan; strategic plan; strategy,0
+strategies,Financial & Budgetary Management,financial_and_budgetary_management,,budget | budget; budget | budget; budgeting; budget; funding; funds; grants; finance | budget; finance | budget; financial | budget; financial; funding | budget; financial; funding; trust fund | budget; funding,0
+strategies,"Policy, Regulation & Legal Frameworks",policy_regulation_legal_frameworks,,law; law | legal | legal; policy | legislation | policy | policy; law | policy; legal | policy; policy development,0
+strategies,"Environmental, Climate & Biodiversity Action",environmental_climate_biodiversity_action,,adaptation; mitigation | biodiversity | biodiversity; biodiversity | biodiversity; environmental | climate | climate; adaptation; mitigation | environment | environment; climate,0
+strategies,"Knowledge, Research & Data Systems",knowledge_research_data_systems,,assessment | assessment; information | data | data; data | information | information; monitoring | monitoring | monitoring; data; data,0
+strategies,Innovation & Technology Development,innovation_technology_development,,digital; innovation | digital; tools | innovation | innovation; platforms | innovation; systems | platforms | platforms; innovation | platforms; model; innovation,0
+strategies,"Inclusion, Rights & Social Justice",inclusion_rights_social_justice,,gender | gender; gender | gender; participation | human rights; human rights | inclusive | inclusive; gender | inclusive; participation | inclusive; vulnerable,0
+strategies,Capacity Development & Operational Delivery,capacity_development_operational_delivery,,capacity building | capacity building; implementation | capacity development | field | implementation | implementation; capacity building; operations | implementation; implementation | implementation; implementation; technical assistance,0
+strategies,"Collaboration, Partnerships & Networks",collaboration_partnerships_networks,,coordination | coordination; collaboration | coordination; network; partnership | coordination; partnership | network | network; coordination; partnerships | network; forum; coordination | network; partnerships,0
+strategies,"Monitoring, Evaluation & Accountability",monitoring_evaluation_accountability,,accountability | evaluation | indicators | indicators; evaluation | indicators; evaluation; accountability; evaluation | indicators; monitoring | indicators; performance | indicators; performance; monitoring,0
+defined_interinstitutional_relationships,UN System Collaboration,un_system_collaboration,,fao; fao; un system; un system | fao; un system | fao; united nations; fao | imo; imo; united nations; unesco; unep; wmo; undp | un agencies; fao; undp | un agencies; un system; undp | un agencies; undp; unesco; who; wmo | un agencies; unep; undp; fao; who; wmo,0
+defined_interinstitutional_relationships,Regional Body Coordination,regional_body_coordination,,african union | asean; ecowas; regional organizations | au | eu | oas; regional organizations | regional organizations,0
+defined_interinstitutional_relationships,NGO Engagement,ngo_engagement,,international ngos | ngo | ngos | non-governmental,0
+defined_interinstitutional_relationships,Private Sector Partnerships,private_sector_partnerships,,business | industry | private sector | private sector; business | private sector; corporate | private sector; private sector,0
+defined_interinstitutional_relationships,Scientific Community Linkages,scientific_community_linkages,,academia | academia; research institutions | university,0
+defined_interinstitutional_relationships,Treaty Body Coordination,treaty_body_coordination,,conference of the parties; cop | secretariat | secretariat; cop | secretariat; secretariat | secretariat; secretariat; conference of the parties | secretariat; treaty bodies,0
+defined_interinstitutional_relationships,Donor Partnerships,donor_partnerships,,donor; trust fund; trust fund | donor; world bank; trust funds | donors | donors; world bank | gef | gef; gef | ifad; development partners | ifad; ifad; world bank; gcf; gef; gef,0
+defined_interinstitutional_relationships,Civil Society Engagement,civil_society_engagement,,civil society,0
+defined_interinstitutional_relationships,Intergovernmental Consultations,intergovernmental_consultations,,intergovernmental | intergovernmental; intergovernmental | ministerial,0
+defined_interinstitutional_relationships,Technical or Expert Groups,technical_or_expert_groups,,scientific and technical advisory | task force,0
+vertical_coordination,UN → Member States,un_to_member_states,,,0
+vertical_coordination,Global–Regional–National Coordination,global_regional_national_coordination,,,0
+vertical_coordination,Intergovernmental → National Institutions,intergovernmental_to_national_institutions,,,0
+vertical_coordination,Technical Assistance to States,technical_assistance_to_states,,capacity building | capacity building; technical cooperation; technical cooperation | capacity building; training; technical assistance; technical cooperation | capacity building; training; technical cooperation | technical assistance | technical assistance; capacity building; technical cooperation; technical cooperation | technical assistance; technical assistance; capacity building; technical support | technical cooperation,0
+vertical_coordination,Policy Alignment with National Plans,policy_alignment_with_national_plans,,,0
+vertical_coordination,Regional Implementing Partners,regional_implementing_partners,,regional bodies | sub-regional | sub-regional; regional bodies | subregional,0
+vertical_coordination,Reporting & Compliance Mechanisms,reporting_compliance_mechanisms,,monitoring | monitoring; review mechanism | reporting | reporting; compliance | reporting; compliance; monitoring,0
+vertical_coordination,Multi-level Planning Structures,multi_level_planning_structures,,multilevel governance,0
+vertical_coordination,Data Integration Systems,data_integration_systems,,,0
+vertical_coordination,Sectoral → National Coordination,sectoral_to_national_coordination,,,0
+horizontal_coordination,Cross-sectoral Collaboration,cross_sectoral_collaboration,,intersectoral,0
+horizontal_coordination,Thematic Working Groups,thematic_working_groups,,,0
+horizontal_coordination,Joint Research & Projects,joint_research_projects,,,0
+horizontal_coordination,Shared Monitoring Frameworks,shared_monitoring_frameworks,,,0
+horizontal_coordination,Multi-stakeholder Platforms,multi_stakeholder_platforms,,stakeholder platforms,0
+horizontal_coordination,Inter-agency Technical Cooperation,inter_agency_technical_cooperation,,inter-agency cooperation; inter-agency coordination | inter-agency cooperation; inter-agency task force | inter-agency coordination | inter-agency task force | interagency task force,0
+horizontal_coordination,Regional Economic Community Coordination,regional_economic_community_coordination,,eu,0
+horizontal_coordination,Advocacy & Communication,advocacy_communication,,,0
+horizontal_coordination,Cross-border Initiatives,cross_border_initiatives,,,0
+horizontal_coordination,Peer-to-Peer Learning Mechanisms,peer_to_peer_learning_mechanisms,,,0

@@ -1,0 +1,50 @@
+field,description
+Institution,IGO short name or identifier.
+Institutional Description (verbatim),Verbatim institutional text used as input for automated extraction and matching.
+Institutional Description (Standardised),"Pre-processed text (case-folded, cleaned) used for matching."
+Keywords Extracted (Cleaned & No Stopwords),Candidate keywords extracted after standardisation and stopword removal.
+Keyword Frequency,Frequency table (often stored as a compact key:value string) for extracted keywords.
+KWIC Evidence (keywords→snippet),Keyword-in-context snippets supporting each match (±30–40 characters).
+Consolidated Meaningful Keywords,Manually consolidated subset of extracted keywords used for mapping.
+Keywords→Candidate Categories (pre-decision),Automated candidate category suggestions prior to final mapping.
+Keywords→Category Map (flat),Flattened mapping of keywords to the final category set.
+Mapping Rationale (keyword→category + method),"Rule or reasoning used to link keywords to categories (regex, synonym, manual confirmation)."
+Ordinal Score (0–10),Category-count based ordinal score for the attribute family (bounded 0–10).
+Methodological Notes,"Notes on edge cases, exclusions, or manual decisions taken during review."
+Consolidated Meaningful Keywords_1,Additional consolidation field used in later review iterations (where present).
+Consolidated Keywords→Category Trigger Map,Structured map linking consolidated keywords to triggered categories (for audit).
+KWIC Evidence (Highlighted),Highlighted KWIC evidence used for human audit (where present).
+Year of Establishment,Formal year of establishment of the IGO.
+Age_2025,Derived age calculated as 2025 - Year of Establishment.
+Era_Category,Founding era bin used for descriptive summaries.
+FoundingDensity_5yr,Density metric: number of IGOs founded within a +/- 2 year window (5-year window) around the focal IGO’s founding year.
+CumulativeStock,Cumulative stock metric: running total of IGOs founded up to and including the focal IGO’s founding year.
+Attribute,"Attribute family (e.g., Spatial_Jurisdiction, Strategies)."
+Category,Canonical category label within an attribute family.
+Spatial Jurisdiction (verbatim),Verbatim institutional text used for matching within the Spatial Jurisdiction attribute family.
+Subject Matter Jurisdiction (verbatim),Verbatim institutional text used for matching within the Subject Matter Jurisdiction attribute family.
+Sources of Jurisdiction (verbatim),Verbatim institutional text used for matching within the Sources of Jurisdiction attribute family.
+Defined Objectives (verbatim),Verbatim institutional text used for matching within the Defined Objectives attribute family.
+Strategies (verbatim),Verbatim institutional text used for matching within the Strategies attribute family.
+Defined inter-inst Rel (verbatim),Verbatim institutional text used for matching within the Defined Inter-Institutional Relationships attribute family.
+Vertical Coordination (verbatim),Verbatim institutional text used for matching within the Vertical Coordination attribute family.
+Horizontal Coordination (verbatim),Verbatim institutional text used for matching within the Horizontal Coordination attribute family.
+Trigger_Keywords,Subset of extracted keywords that triggered an activation for the focal category.
+Raw_Freq,Raw frequency count of trigger occurrences associated with the category (pre-capping).
+TFIDF_Weight,TF–IDF salience weight for the category’s trigger terms in the attribute-family document set.
+Presence_Bonus,Binary presence indicator used in the hybrid score (1 if category is present in the authoritative layer).
+Tier_Bonus,"Category-specific tier bonus used where conceptual hierarchy applies (e.g., jurisdictional reach)."
+Hybrid_Score_Raw,"Hybrid score prior to normalisation: Presence_Bonus + min(Raw_Freq,5) + Tier_Bonus."
+Ordinal_Score,Reviewed ordinal (0–10) category-count score for the attribute family.
+Override_Flag,"Flag indicating whether activation is supported by RAW evidence, CLEAN adjudication, or both."
+Score_WithinIGO_0_10,Within-IGO normalised hybrid score for the category (0–10) relative emphasis within the IGO’s profile.
+Score_AcrossIGO_0_10,Across-IGO normalised hybrid score for the category (0–10) relative position in the population distribution.
+igo_age,"IGO age in years, computed as 2025 minus YearFounded."
+spatial_breadth,Composite breadth score derived from Spatial Jurisdiction category activations.
+subject_breadth,Composite breadth score derived from Subject Matter Jurisdiction category activations.
+legal_breadth,Composite breadth/formality score derived from Sources of Jurisdiction category activations.
+vertical_coordination_strength,Composite score for vertical coordination mechanisms.
+horizontal_coordination_strength,Composite score for horizontal coordination mechanisms.
+strategy_diversification,"Diversification index (e.g., breadth or Shannon diversity) over strategy categories."
+objective_diversification,"Diversification index (e.g., breadth or Shannon diversity) over objective categories."
+endurance,Composite endurance index used as the outcome in Conjecture 1 tests.
