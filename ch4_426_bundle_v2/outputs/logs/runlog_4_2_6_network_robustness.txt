@@ -1,0 +1,10 @@
+Script: 06_network_diagnostics_robustness.R (pre-generated outputs in bundle)
+Timestamp (UTC): 2026-02-12T16:04:45Z
+Similarity metric: cosine
+Edge threshold quantile: 0.90
+Edge threshold value: 0.860592
+Community method: greedy modularity maximisation (fast-greedy)
+Robust SE: HC3
+Winsorisation: 5th/95th percentiles
+Cook's distance removal: top 1 observation per model
+Density alternative window: ±3 years (FoundingDensity_7yr_count)

@@ -1,0 +1,6 @@
+Robustness_lever,C1,C2,C3,Notes
+HC3 robust SE,Stable,Stable,Stable,
+Winsorised 5–95%,Stable,Stable,Stable,
+Drop top Cook's D (n=1),Stable,Stable,Stable,
+Density window ±3 years,Stable,Stable,Stable,
+Replace composite embeddedness with network eigenvector,Partially stable,Stable,Partially stable,
