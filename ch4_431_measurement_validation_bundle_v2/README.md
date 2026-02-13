@@ -1,6 +1,6 @@
 # Chapter 4 — §4.3.1 Measurement validation (reproducibility bundle)
 
-This bundle reproduces the measurement-validation outputs for Chapter 4 §4.3.1, including:
+This bundle produces the measurement-validation outputs for Chapter 4 §4.3.1, including:
 - factorability checks (KMO, Bartlett),
 - parallel analysis figure,
 - exploratory factor analysis (EFA) loadings and interpretation,
@@ -27,7 +27,7 @@ or from a terminal:
 Rscript scripts/07_measurement_validation.R
 ```
 
-The script writes thesis-ready tables to `outputs/tables/` and figures to `outputs/figures/`.
+The script writes tables to `outputs/tables/` and figures to `outputs/figures/`.
 Each Excel output includes a `Data_Dictionary` sheet.
 
 ## Outputs (filenames)
