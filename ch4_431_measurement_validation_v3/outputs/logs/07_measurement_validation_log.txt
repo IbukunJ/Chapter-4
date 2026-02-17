@@ -1,0 +1,34 @@
+07_measurement_validation_log.txt
+Generated: 2026-02-17T06:19:46.450455
+
+Inputs:
+ - data/analysis_dataset_full.csv (FULL-normalised modelling table)
+
+Indicator pools:
+ - EEI_pool (p=11): spatial_jurisdiction, subject_matter_jurisdiction, mandate_breadth, strategies, defined_objectives, vertical_coordination, horizontal_coordination, relations, authority_treaty_Factor, authority_BindingSecondary_Factor, authority_delegated_factor
+ - Adaptive_pool (p=2): strategies, defined_objectives
+ - LEF_pool (p=8): relations, vertical_coordination, horizontal_coordination, embeddedness_score, intersection_score, authority_treaty_Factor, authority_BindingSecondary_Factor, authority_delegated_factor
+
+Parallel analysis parameters:
+ - n_iter = 500
+ - random_seed = 42
+ - EEI_pool factors retained (rule: eig_real > eig_rand_mean): 5
+ - LEF_pool factors retained (rule: eig_real > eig_rand_mean): 3
+
+EFA parameters:
+ - extraction = principal axis factoring (pa)
+ - rotation = oblimin (gamma=0, oblique)
+ - loading reporting threshold = 0.40 (absolute)
+
+CFA parameters (intended R implementation):
+ - estimator = MLR (robust)
+ - missing = FIML (lavaan missing='fiml')
+ - models: EEI_1factor, AdaptiveCapacity_1factor, LEF_1factor
+
+NOTE:
+ - The *thesis-ready* tables in outputs/ were generated in this environment for packaging.
+ - For the final replication package, re-run scripts/07_measurement_validation.R to regenerate tables/figures in R (psych + lavaan + semTools) and overwrite outputs.
+
+Environment (this build):
+ - Python: 3.11.2
+ - Platform: Linux-4.4.0-x86_64-with-glibc2.36
