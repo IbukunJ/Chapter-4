@@ -1,6 +1,6 @@
-# Chapter 4 reproducible pipeline (R)
+# Chapter 4 text-to-data reproducible pipeline (R)
 
-This pipeline is designed to **regenerate all Chapter 4 outputs** (tables, figures, logs, and dictionaries) from the inputs in `data/raw/` and `data/clean/` on a clean machine.
+This pipeline is designed to **regenerate all chapter 4's text-to-data outputs** (tables, figures, logs, and dictionaries) from the inputs in `data/raw/` and `data/clean/` on a clean machine.
 
 Two processing stages are supported:
 
