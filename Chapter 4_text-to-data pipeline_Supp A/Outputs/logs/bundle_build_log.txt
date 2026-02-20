@@ -1,0 +1,10 @@
+Chapter 4 reproducibility bundle build log
+Build timestamp: 2026-02-08T09:14:13.316079Z
+Host: Linux-4.4.0-x86_64-with-glibc2.36
+
+Actions performed:
+- Copied derived FULL normalised attribute workbooks and key processed files into outputs/tables.
+- Added a 'Data_Dictionary' sheet to each workbook in outputs/tables (variable-level metadata by sheet).
+- Generated schematic and founding-context figures into outputs/figures.
+
+Note: Final end-to-end reproduction is intended to be achieved via the R pipeline (renv + deterministic scripts/{targets}).
