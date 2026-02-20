@@ -1,4 +1,4 @@
-# Chapter 4 §4.3.1 Measurement Validation (Bundle v3)
+# Chapter 4 Measurement Validation (v3)
 
 This bundle contains a reproducible (scripted) workflow for exploratory and confirmatory factor analysis (EFA/CFA) of:
 - EEI (Endurance/Institutionalisation),
