@@ -1,3 +1,0 @@
-This file records that the reference outputs in this bundle were generated in the authoring environment using Python for verification.
-Timestamp (UTC): 2026-02-12T04:39:30.109857Z
-The canonical reproduction is via scripts/05_descriptives_correlations_v3.R on a clean R environment.
